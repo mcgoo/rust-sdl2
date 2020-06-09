@@ -101,6 +101,27 @@ fn get_pkg_config() {
     }
 }
 
+#[cfg(feature = "use-vcpkg")]
+fn get_vcpkg_config() {
+    // could actually use this at the point that we can specify a vcpkg triplet
+    let _statik: bool = if cfg!(feature = "static-link") { true } else { false };
+
+    vcpkg::find_package("sdl2").unwrap();
+    if cfg!(feature = "image") {
+        vcpkg::find_package("sdl2-image").unwrap();
+    }
+    if cfg!(feature = "ttf") {
+        vcpkg::find_package("sdl2-ttf").unwrap();
+    }
+    if cfg!(feature = "mixer") {
+        vcpkg::find_package("sdl2-mixer").unwrap();
+    }
+    if cfg!(feature = "gfx") {
+        vcpkg::find_package("sdl2-gfx").unwrap();
+    }
+}
+
+
 // returns the location of the downloaded source
 #[cfg(feature = "bundled")]
 fn download_sdl2() -> PathBuf {
@@ -281,6 +302,15 @@ fn compute_include_paths() -> Vec<String> {
         };
     }
 
+    #[cfg(feature = "vcpkg")] {
+        // don't print the "cargo:xxx" directives, we're just trying to get the include paths here
+        let vcpkg_library = vcpkg::Config::new().cargo_metadata(false).probe("sdl2").unwrap();
+        for path in vcpkg_library.include_paths {
+            include_paths.push(format!("{}", path.display()));
+        };
+    }
+
+
     include_paths
 }
 
@@ -289,6 +319,12 @@ fn link_sdl2(target_os: &str) {
         // prints the appropriate linking parameters when using pkg-config
         // useless when using "bundled"
         get_pkg_config();
+    }    
+    
+    #[cfg(all(feature = "use-vcpkg", not(feature = "bundled")))] {
+        // prints the appropriate linking parameters when using pkg-config
+        // useless when using "bundled"
+        get_vcpkg_config();
     }
 
     #[cfg(not(feature = "static-link"))] {
