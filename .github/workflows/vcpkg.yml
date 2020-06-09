@@ -20,7 +20,7 @@ jobs:
       - name: Build SDL2
         shell: bash
         env:
-          CI_BUILD_FEATURES: "gfx image ttf mixer"
+          CI_BUILD_FEATURES: "use-vcpkg static-link gfx image ttf mixer"
         run: |
           set -xeuo pipefail
           rustc --version
