@@ -156,7 +156,7 @@ name = "raw-window-handle-with-wgpu"
 # how do we specify as much as we need in the rust-sdl2 tests but not cause every user to build
 # it all every time
 #install = ["sdl2", "sdl2-image[libjpeg-turbo,tiff,libwebp]"]
-install = ["sdl2", "sdl2-image[libjpeg-turbo,tiff,libwebp]", "sdl2-ttf"]
+install = ["sdl2", "sdl2-image[libjpeg-turbo,tiff,libwebp]", "sdl2-ttf", "sdl2-gfx", "sdl2-mixer"]
 
 
 # this only takes effect when building examples and tests
@@ -164,4 +164,4 @@ git = "https://github.com/microsoft/vcpkg"
 branch = "master"
 
 [package.metadata.vcpkg.target]
-x86_64-pc-windows-msvc = { triplet = "x64-windows-static-md", install = ["sdl2", "sdl2-image[libjpeg-turbo,tiff,libwebp]", "sdl2-ttf"] }
+x86_64-pc-windows-msvc = { triplet = "x64-windows-static-md", install = ["sdl2", "sdl2-image[libjpeg-turbo,tiff,libwebp]", "sdl2-ttf", "sdl2-mixer", "sdl2-gfx"] }

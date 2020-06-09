@@ -121,7 +121,6 @@ fn get_vcpkg_config() {
     }
 }
 
-
 // returns the location of the downloaded source
 #[cfg(feature = "bundled")]
 fn download_sdl2() -> PathBuf {
@@ -354,7 +353,7 @@ fn link_sdl2(target_os: &str) {
     }
 
     #[cfg(feature = "static-link")] {
-        if cfg!(feature = "bundled") || cfg!(feature = "use-pkgconfig") == false { 
+        if cfg!(feature = "bundled") || (cfg!(feature = "use-pkgconfig") == false && cfg!(feature = "use-vcpkg") == false) { 
             println!("cargo:rustc-link-lib=static=SDL2main");
             println!("cargo:rustc-link-lib=static=SDL2");
         }
