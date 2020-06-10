@@ -28,8 +28,7 @@ version = "^0.3"
 optional = true
 
 [build-dependencies.vcpkg]
-version = "^0.2"
-path = "../../vcpkg-rs/vcpkg"
+version = "^0.2.10"
 optional = true
 
 [build-dependencies.cmake]
