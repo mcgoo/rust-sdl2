@@ -21,6 +21,7 @@ jobs:
         shell: bash
         env:
           CI_BUILD_FEATURES: "use-vcpkg static-link gfx image ttf mixer"
+          RUST_TEST_THREADS: 1
         run: |
           set -xeuo pipefail
           rustc --version
