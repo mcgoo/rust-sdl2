@@ -25,6 +25,6 @@ jobs:
           set -xeuo pipefail
           rustc --version
           cargo --version
-          cargo build -- --features "${CI_BUILD_FEATURES}"
-          cargo build -- --examples --features "${CI_BUILD_FEATURES}"
-          cargo test -- --features "${CI_BUILD_FEATURES}"
+          cargo build --features "${CI_BUILD_FEATURES}"
+          cargo build --examples --features "${CI_BUILD_FEATURES}"
+          cargo test --features "${CI_BUILD_FEATURES}"
